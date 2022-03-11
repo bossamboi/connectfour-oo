@@ -5,30 +5,6 @@
  * board fills (tie)
  */
 
-// below code placed into Game class
-
-// let buttonArea = document.createElement("div");
-// let newGameButton = document.createElement("button");
-
-// buttonArea.classList.add("buttonArea");
-
-// newGameButton.classList.add("button");
-// newGameButton.innerText = "New Game";
-// buttonArea.append(newGameButton);
-// newGameButton.addEventListener("click", initNewGame);
-
-// let body = document.querySelector("body");
-// body.append(buttonArea);
-
-// let table = document.getElementById("board");
-
-// function initNewGame() {
-//   while (table.firstChild) {
-//     table.removeChild(table.firstChild);
-//   }
-//   new Game(7, 6);
-// }
-
 class Game {
   constructor(width, height) {
     this.width = width;
@@ -40,6 +16,7 @@ class Game {
     this.setUpButton();
   }
 
+  /**Create button on DOM - NEW GAME */
   setUpButton() {
     const buttonArea = document.createElement("div");
     const newGameButton = document.createElement("button");
@@ -55,12 +32,16 @@ class Game {
     body.append(buttonArea);
   }
 
+  /**Clear board and create new in-memory board and html board */
+
   initNewGame() {
     const table = document.getElementById("board");
 
+    // if game table has children, remove them all
     while (table.firstChild) {
       table.removeChild(table.firstChild);
     }
+
     this.board = [];
     console.log(table);
     // new Game(7, 6);
@@ -68,12 +49,15 @@ class Game {
     this.makeHtmlBoard();
   }
 
+  /**Create in-memory board */
+
   makeBoard() {
     for (let y = 0; y < this.height; y++) {
       this.board.push(Array.from({ length: this.width }));
     }
   }
 
+  /** create HTML board */
   makeHtmlBoard() {
     const htmlBoard = document.getElementById("board");
 
@@ -123,6 +107,8 @@ class Game {
     const spot = document.getElementById(`${y}-${x}`);
     spot.append(piece);
   }
+
+  /** End the game after pausing for final piece to drop */
 
   endGame(msg) {
     setTimeout(function () {
