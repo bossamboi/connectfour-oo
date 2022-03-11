@@ -5,33 +5,29 @@
  * board fills (tie)
  */
 
+// below code placed into Game class
 
+// let buttonArea = document.createElement("div");
+// let newGameButton = document.createElement("button");
 
-let buttonArea = document.createElement("div");
-let newGameButton = document.createElement("button");
+// buttonArea.classList.add("buttonArea");
 
-buttonArea.classList.add("buttonArea");
+// newGameButton.classList.add("button");
+// newGameButton.innerText = "New Game";
+// buttonArea.append(newGameButton);
+// newGameButton.addEventListener("click", initNewGame);
 
-newGameButton.classList.add("button");
-newGameButton.innerText = "New Game";
-buttonArea.append(newGameButton);
-newGameButton.addEventListener("click", initNewGame);
+// let body = document.querySelector("body");
+// body.append(buttonArea);
 
-let body = document.querySelector("body");
-body.append(buttonArea);
+// let table = document.getElementById("board");
 
-let table = document.getElementById("board");
-
-function initNewGame(){
-
-  while(table.firstChild){
-    table.removeChild(table.firstChild);
-  }
-  new Game(7, 6);
-};
-
-
-
+// function initNewGame() {
+//   while (table.firstChild) {
+//     table.removeChild(table.firstChild);
+//   }
+//   new Game(7, 6);
+// }
 
 class Game {
   constructor(width, height) {
@@ -39,6 +35,35 @@ class Game {
     this.height = height;
     this.currPlayer = 1;
     this.board = [];
+    // this.makeBoard();
+    // this.makeHtmlBoard();
+    this.setUpButton();
+  }
+
+  setUpButton() {
+    const buttonArea = document.createElement("div");
+    const newGameButton = document.createElement("button");
+    const body = document.querySelector("body");
+
+    buttonArea.classList.add("buttonArea");
+
+    newGameButton.classList.add("button");
+    newGameButton.innerText = "New Game";
+    buttonArea.append(newGameButton);
+    newGameButton.addEventListener("click", this.initNewGame.bind(this));
+
+    body.append(buttonArea);
+  }
+
+  initNewGame() {
+    const table = document.getElementById("board");
+
+    while (table.firstChild) {
+      table.removeChild(table.firstChild);
+    }
+    this.board = [];
+    console.log(table);
+    // new Game(7, 6);
     this.makeBoard();
     this.makeHtmlBoard();
   }
@@ -100,7 +125,9 @@ class Game {
   }
 
   endGame(msg) {
-    alert(msg);
+    setTimeout(function () {
+      alert(msg);
+    }, 100);
   }
 
   handleClick(evt) {
@@ -194,4 +221,4 @@ class Game {
   }
 }
 
-
+new Game(7, 6);
